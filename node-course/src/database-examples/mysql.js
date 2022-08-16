@@ -28,7 +28,7 @@ fs.readFile(
       product.price,
     ]);
     connection.query(
-      "INSERT INTO products (Id, Name, Price) VALUES ?",
+      "INSERT INTO products (id, name, price) VALUES ?",
       [productsInArray],
       (err, results) => {
         if (err) console.log(err);
@@ -37,15 +37,15 @@ fs.readFile(
         }
       }
     );
+
+    connection.query("SELECT * FROM products", (err, results) => {
+      if (err) console.log(err);
+      else {
+        console.log("Current products:\n");
+        console.log(results);
+      }
+    });
+
+    connection.end();
   }
 );
-
-connection.query("SELECT * FROM products", (err, results) => {
-  if (err) console.log(err);
-  else {
-    console.log("Current products:\n");
-    console.log(results);
-  }
-});
-
-connection.end();
