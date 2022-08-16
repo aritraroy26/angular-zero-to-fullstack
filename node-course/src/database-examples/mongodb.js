@@ -10,13 +10,13 @@ const execute = async () => {
     useNewUrlParser: true,
     //these are added to make mongodb backward compatible
   });
-  const db = client.db("node-course-db");
+  const db = client.db("node-course");
   const newProductsString = await fs.readFile(
     path.join(__dirname, "new-products.txt"),
     "utf8"
   );
   const productNames = newProductsString.split(",");
-  for (let productName in productNames) {
+  for (let productName of productNames) {
     await db.collection("products").insertOne({ name: productName });
   }
   console.log("Done importing products.");
